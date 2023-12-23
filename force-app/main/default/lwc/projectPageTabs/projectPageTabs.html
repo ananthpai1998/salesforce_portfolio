@@ -7,10 +7,23 @@
                         <div class="slds-p-horizontal_small">
                             <b>{tab.ScopeDescription}</b>
                         </div>
-                        
+                        <div>
+                            <template for:each={tabData.categories} for:item="category">
+                                <lightning-card key={category.Id} title={category.Name}>
+
+                                </lightning-card>
+                            </template>
+                        </div>
                     </lightning-card>
                 </lightning-tab>
             </template>
         </template>
     </lightning-tabset>
 </template>
+
+<!-- <template for:each={dataStructure} for:item="data">
+    <th key={data.Key}>{data.Key}</th>
+    <template for:each={data.value} for:item="dataValue">
+        <td key={dataValue.Id}>{dataValue.Label}</td>
+    </template>
+</template> -->
