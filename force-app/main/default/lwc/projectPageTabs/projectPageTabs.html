@@ -1,0 +1,16 @@
+<template>
+    <lightning-tabset>
+        <template if:true={tabData}>
+            <template for:each={tabData} for:item="tab">
+                <lightning-tab key={tab.Id} label={tab.Name}>
+                    <lightning-card class="">
+                        <div class="slds-p-horizontal_small">
+                            <b>{tab.ScopeDescription}</b>
+                        </div>
+                        
+                    </lightning-card>
+                </lightning-tab>
+            </template>
+        </template>
+    </lightning-tabset>
+</template>
