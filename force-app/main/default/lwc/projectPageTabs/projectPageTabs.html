@@ -3,16 +3,23 @@
         <template if:true={tabData}>
             <template for:each={tabData} for:item="tab">
                 <lightning-tab key={tab.Id} label={tab.Name}>
-                    <lightning-card class="">
+                    <lightning-card>
                         <div class="slds-p-horizontal_small">
                             <b>{tab.ScopeDescription}</b>
                         </div>
                         <div>
-                            <template for:each={tabData.categories} for:item="category">
-                                <lightning-card key={category.Id} title={category.Name}>
-
-                                </lightning-card>
-                            </template>
+                            <lightning-layout class="slds-p-around_small" multiple-rows="true">
+                                <template for:each={tab.categories} for:item="category">
+                                    <lightning-layout-item class="custom-box slds-box slds-m-bottom_small" key={category.Id} padding="around-small" size="12">
+                                        
+                                        <lightning-accordion active-section-name={activeAccordionSection} onsectiontoggle={handleAccordionSection}>
+                                            <lightning-accordion-section name={category.categoryName} label={category.categoryName}>
+                                                
+                                            </lightning-accordion-section>
+                                        </lightning-accordion>
+                                    </lightning-layout-item>
+                                </template>
+                            </lightning-layout>
                         </div>
                     </lightning-card>
                 </lightning-tab>
@@ -21,9 +28,21 @@
     </lightning-tabset>
 </template>
 
-<!-- <template for:each={dataStructure} for:item="data">
-    <th key={data.Key}>{data.Key}</th>
-    <template for:each={data.value} for:item="dataValue">
-        <td key={dataValue.Id}>{dataValue.Label}</td>
-    </template>
-</template> -->
+ <!-- <template for:each={tab.categories} for:item="category">
+                                <div class="rounded-card" key={category.Id}>
+                                <lightning-card  title={category.categoryName}>
+                                    <div>
+                                        {category.categoryDescription}
+                                    </div>
+                                    <div>
+                                        <template for:each={category.projects} for:item="project">
+                                            <lightning-card key={project.projectId} title={project.projectName}>
+                                                <div>
+                                                    {project.projectDescription}
+                                                </div>
+                                            </lightning-card>
+                                        </template>
+                                    </div>
+                                </lightning-card>
+                                </div>
+                            </template> -->

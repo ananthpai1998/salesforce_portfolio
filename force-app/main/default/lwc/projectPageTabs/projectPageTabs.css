@@ -1,0 +1,6 @@
+/* Custom CSS for Lightning Card with Round Borders */
+.rounded-card {
+    border-radius: 0.625rem; /* Adjust the value as needed for the desired border radius */
+    border: 1px solid #d8dde6; /* Add border style if needed */
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); /* Add box shadow if needed */
+}
