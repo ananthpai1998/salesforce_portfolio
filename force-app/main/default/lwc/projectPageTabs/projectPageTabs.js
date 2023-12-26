@@ -6,9 +6,7 @@ import MyModal from 'c/myModal';
 export default class ProjectPageTabs extends LightningElement {
 
     tabData;
-    activeAccordionSection;
-    content = 'The modal content';
-    header = 'The modal header';
+    selectedProjectId;
 
 
     @wire(getProjectPageTabs)
@@ -26,16 +24,19 @@ export default class ProjectPageTabs extends LightningElement {
         }
     }
 
-    handleAccordionSection(event){
-        this.activeAccordionSection = event.detail.name;
+    handleViewFullProject(event){
+        this.selectedProjectId = event.target.value;
+        console.log('this.selectedProjectId ', this.selectedProjectId)
+        this.handleShowModal()
     }
 
     async handleShowModal() {
+        
         this.result = await MyModal.open({
-            size: 'small',
+            size: 'full',
             description: 'MiscModal displays the message in a popup',
-            header: this.header,
-            content: this.content
+            header: 'test',
+            content: this.selectedProjectId
         });
     }
 
