@@ -37,7 +37,7 @@ public without sharing class ProjectPageController {
                 categoryMap.put('categoryId', projectCategoryRecord.Id);
                 categoryMap.put('categoryName', projectCategoryRecord.Name);
                 categoryMap.put('categoryDescription', projectCategoryRecord.category_description__c);
-                categoryMap.put('projects', categoryToProjectsMap.get(projectCategoryRecord.scope__r.Id));
+                categoryMap.put('projects', categoryToProjectsMap.get(projectCategoryRecord.Id));
                 scopeToCategoryMap.get(projectCategoryRecord.scope__r.Id).add(categoryMap);
             }
             else{

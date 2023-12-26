@@ -1,13 +1,28 @@
-import { api  } from 'lwc';
+import { api, track, wire , LightningElement  } from 'lwc';
 import LightningModal from 'lightning/modal';
+import getProjectDetails from '@salesforce/apex/projectCanvasController.getProjectDetails';
 
-export default class ProjectCanvas extends LightningModal {
+export default class ProjectCanvas extends LightningModal  {
+
 
     @api header;
     @api content;
 
-    // Return a custom value when the modal is closed with the Close button.
-    // If no value is returned in the close method, then undefined is returned(Same as closing with the X button).
+
+
+    @wire(getProjectDetails)
+    projectDetails({ error, data }){
+        if (data) {
+            console.log(data)    
+            this.content = data
+        }
+        else{
+            console.log(error)
+        }
+    }
+
+
+    
     handleClose() {
         this.close('return value');
     }

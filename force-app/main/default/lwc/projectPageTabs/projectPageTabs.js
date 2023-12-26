@@ -1,43 +1,37 @@
 import { LightningElement, wire, track} from 'lwc';
 import getProjectPageTabs from '@salesforce/apex/ProjectPageController.getProjectPageTabs';
-import MyModal from 'c/myModal';
+import projectCanvas from 'c/projectCanvas';
+import getProjectDetails from '@salesforce/apex/projectCanvasController.getProjectDetails';
 
 
 export default class ProjectPageTabs extends LightningElement {
 
     tabData;
-    selectedProjectId;
-
+    selectedProjectDetails;
 
     @wire(getProjectPageTabs)
     projectPageTabs({ error, data }){
         if (data) {
-            console.log(data)    
-            this.tabData =  JSON.parse(data);
-            //need to fix this
-            this.activeAccordionSection  =  this.tabData[0].categories[0].categoryName;
-            console.log('this.activeAccordionSection: ', this.activeAccordionSection);
-            
+            console.log(data);
+            this.tabData =  JSON.parse(data);            
         }
         else{
-            console.log(error)
+            console.log(error);
         }
     }
 
     handleViewFullProject(event){
         this.selectedProjectId = event.target.value;
-        console.log('this.selectedProjectId ', this.selectedProjectId)
-        this.handleShowModal()
+        console.log('this.selectedProjectId ',  this.selectedProjectId);
+        this.handleShowModal();
     }
 
     async handleShowModal() {
-        
-        this.result = await MyModal.open({
-            size: 'full',
+        this.result = await projectCanvas.open({
+            size: 'large',
             description: 'MiscModal displays the message in a popup',
             header: 'test',
-            content: this.selectedProjectId
+            content:  this.selectedProjectDetails
         });
     }
-
 }
