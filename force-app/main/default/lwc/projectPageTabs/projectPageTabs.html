@@ -7,42 +7,37 @@
                         <div class="slds-p-horizontal_small">
                             <b>{tab.ScopeDescription}</b>
                         </div>
-                        <div>
-                            <lightning-layout class="slds-p-around_small" multiple-rows="true">
-                                <template for:each={tab.categories} for:item="category">
-                                    <lightning-layout-item class="custom-box slds-box slds-m-bottom_small" key={category.Id} padding="around-small" size="12">
-                                        
-                                        <lightning-accordion active-section-name={activeAccordionSection} onsectiontoggle={handleAccordionSection}>
-                                            <lightning-accordion-section name={category.categoryName} label={category.categoryName}>
-                                                
-                                            </lightning-accordion-section>
-                                        </lightning-accordion>
-                                    </lightning-layout-item>
-                                </template>
-                            </lightning-layout>
-                        </div>
+                        <div class="slds-p-around_medium"><!---->
+                            <lightning-tabset variant="vertical">
+                                <template for:each={tab.categories} for:item="category"> 
+                                <lightning-tab key={category.Id} label={category.categoryName}>
+                                    <div>
+                                        {category.categoryDescription}
+                                    </div>
+                                    <div>
+                                        <template for:each={category.projects} for:item="project">
+                                            <div class="custom-box slds-box slds-m-vertical_small" key={project.Id}>
+                                                <lightning-card title={project.projectName}>
+                                                    <p>{project.projectDescription}</p>
+                                                    <div  slot="footer" class="slds-grid slds-grid_align-center slds-gutters">
+                                                        <div class="slds-col">
+                                                            <lightning-button label="View Source Code"></lightning-button>
+                                                        </div>
+                                                        <div class="slds-col">
+                                                            <lightning-button  label="View Full Project" onclick={handleShowModal}></lightning-button>
+                                                        </div>
+                                                    </div>
+                                                </lightning-card>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </lightning-tab>
+                            </template>
+                            </lightning-tabset>
+                        </div><!---->
                     </lightning-card>
                 </lightning-tab>
             </template>
         </template>
     </lightning-tabset>
 </template>
-
- <!-- <template for:each={tab.categories} for:item="category">
-                                <div class="rounded-card" key={category.Id}>
-                                <lightning-card  title={category.categoryName}>
-                                    <div>
-                                        {category.categoryDescription}
-                                    </div>
-                                    <div>
-                                        <template for:each={category.projects} for:item="project">
-                                            <lightning-card key={project.projectId} title={project.projectName}>
-                                                <div>
-                                                    {project.projectDescription}
-                                                </div>
-                                            </lightning-card>
-                                        </template>
-                                    </div>
-                                </lightning-card>
-                                </div>
-                            </template> -->

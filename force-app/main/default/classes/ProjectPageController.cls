@@ -28,9 +28,6 @@ public without sharing class ProjectPageController {
         }
         
         list<project_category__c> projectCategoryRecords = new list<project_category__c>([Select Id, Name, scope__r.Id, category_description__c  from project_category__c]);
-        
-        //scoid     cat Id project list project details
-        //Map<Id, list<Map<Id, list<Map<String, Object>>>>> scopeToCategoryMap = new  Map<Id, list<Map<Id, list<Map<String, Object>>>>>();
         Map<Id, list<Map<String, Object>>> scopeToCategoryMap = new  Map<Id, list<Map<String, Object>>>();
             
         for (project_category__c projectCategoryRecord : projectCategoryRecords){
@@ -38,16 +35,16 @@ public without sharing class ProjectPageController {
             if (scopeToCategoryMap.containsKey(projectCategoryRecord.scope__r.Id)){
                 Map<String, Object> categoryMap = new Map<String, Object>();
                 categoryMap.put('categoryId', projectCategoryRecord.Id);
-                categoryMap.put('categoryName', projectCategoryRecord.Id);
-                categoryMap.put('categoryDescription', projectCategoryRecord.Id);
+                categoryMap.put('categoryName', projectCategoryRecord.Name);
+                categoryMap.put('categoryDescription', projectCategoryRecord.category_description__c);
                 categoryMap.put('projects', categoryToProjectsMap.get(projectCategoryRecord.scope__r.Id));
                 scopeToCategoryMap.get(projectCategoryRecord.scope__r.Id).add(categoryMap);
             }
             else{
                 Map<String, Object> categoryMap = new Map<String, Object>();
                 categoryMap.put('categoryId', projectCategoryRecord.Id);
-                categoryMap.put('categoryName', projectCategoryRecord.Id);
-                categoryMap.put('categoryDescription', projectCategoryRecord.Id);
+                categoryMap.put('categoryName', projectCategoryRecord.Name);
+                categoryMap.put('categoryDescription', projectCategoryRecord.category_description__c);
                 categoryMap.put('projects', categoryToProjectsMap.get(projectCategoryRecord.Id));
                 list<Map<String, Object>> categoryList = new list<Map<String, Object>>();
                 categoryList.add(categoryMap);

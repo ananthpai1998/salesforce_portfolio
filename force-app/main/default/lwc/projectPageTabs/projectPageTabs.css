@@ -4,3 +4,7 @@
     border: 1px solid #d8dde6; /* Add border style if needed */
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); /* Add box shadow if needed */
 }
+
+.custom-box {
+    flex: 1; /* Expand to fill available horizontal space */
+}
