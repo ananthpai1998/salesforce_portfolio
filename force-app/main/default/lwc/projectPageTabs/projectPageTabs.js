@@ -1,13 +1,13 @@
 import { LightningElement, wire, track} from 'lwc';
 import getProjectPageTabs from '@salesforce/apex/ProjectPageController.getProjectPageTabs';
 import projectCanvas from 'c/projectCanvas';
-import getProjectDetails from '@salesforce/apex/projectCanvasController.getProjectDetails';
 
 
 export default class ProjectPageTabs extends LightningElement {
 
     tabData;
-    selectedProjectDetails;
+    selectedProjectId;
+    selectedProjectName;
 
     @wire(getProjectPageTabs)
     projectPageTabs({ error, data }){
@@ -21,8 +21,11 @@ export default class ProjectPageTabs extends LightningElement {
     }
 
     handleViewFullProject(event){
-        this.selectedProjectId = event.target.value;
+        this.selectedProjectId = event.target.value.projectId;
+        this.selectedProjectName = event.target.value.projectName;
         console.log('this.selectedProjectId ',  this.selectedProjectId);
+        console.log('this.selectedProjectName ',  this.selectedProjectName);
+
         this.handleShowModal();
     }
 
@@ -30,8 +33,8 @@ export default class ProjectPageTabs extends LightningElement {
         this.result = await projectCanvas.open({
             size: 'large',
             description: 'MiscModal displays the message in a popup',
-            header: 'test',
-            content:  this.selectedProjectDetails
+            header: this.selectedProjectName,
+            content:  this.selectedProjectId
         });
     }
 }

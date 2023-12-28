@@ -8,18 +8,22 @@ export default class ProjectCanvas extends LightningModal  {
     @api header;
     @api content;
 
+    displayContent;
 
+    connectedCallback(){
+        console.log('this.content ', this.content)
 
-    @wire(getProjectDetails)
-    projectDetails({ error, data }){
-        if (data) {
-            console.log(data)    
-            this.content = data
-        }
-        else{
-            console.log(error)
-        }
+        getProjectDetails({recordId: this.content})
+      .then((result) => {
+        this.displayContent = result;
+        console.log('this.displayContent '+ this.displayContent);
+      })
+      .catch((error) => {
+        this.error = error;
+      });
+
     }
+
 
 
     
