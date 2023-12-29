@@ -28,6 +28,21 @@ public without sharing class projectCanvasController {
         }
         System.debug('projectRecordResult ' + projectRecordResult);
         return JSON.serialize(projectRecordResult);
-    }   
+    }
+    
+    @AuraEnabled(cacheable=true)
+    public static String getAPIResponse(){
+		
+        Project_Version__c gcpURLRecord = [Select api__c from Project_Version__c where Id = 'a022w00000wIbCvAAK'];
+        Http http = new Http();
+		HttpRequest request = new HttpRequest();
+		request.setEndpoint('https://generateimages-umgqvjytea-uc.a.run.app/?user_input=1');
+		request.setMethod('GET');
+		HttpResponse response = http.send(request);
+        
+		System.debug('response '+ response.getBody());
+		return JSON.serialize(response.getBody());
+        
+    }
     
 }

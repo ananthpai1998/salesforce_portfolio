@@ -1,10 +1,28 @@
 <template>
     <lightning-modal-header label={header}></lightning-modal-header>
-    <lightning-modal-body>Content: {displayContent}</lightning-modal-body>
+    <lightning-modal-body>
+        <!-- Content: {displayContents} -->
+        <template for:each={displayContents} for:item="displayContent">
+            <div key={displayContent.Id}>
+                <p>
+                    <lightning-formatted-rich-text value={displayContent.projectDisplayDetails}>
+                    </lightning-formatted-rich-text>
+                </p>
+                <lightning-tabset variant="scoped">
+                    <template for:each={displayContent.projectVersion} for:item="projectVersion">
+                        <div key={projectVersion.Id}>
+                            <lightning-tab label={projectVersion.projectVersionNumber}>
+                                <lightning-formatted-rich-text value={getAPIResponse}>
+                                </lightning-formatted-rich-text>
+                            </lightning-tab>
+                        </div>
+                    </template>
+                </lightning-tabset>
+            </div>
+        </template>
+    </lightning-modal-body>
     <lightning-modal-footer>
-        <lightning-button
-            label="Close"
-            onclick={handleClose}
-        ></lightning-button>
+        <lightning-button label="Close" onclick={handleClose}>
+        </lightning-button>
     </lightning-modal-footer>
 </template>

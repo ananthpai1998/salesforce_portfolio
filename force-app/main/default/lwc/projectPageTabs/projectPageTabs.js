@@ -2,6 +2,8 @@ import { LightningElement, wire, track} from 'lwc';
 import getProjectPageTabs from '@salesforce/apex/ProjectPageController.getProjectPageTabs';
 import projectCanvas from 'c/projectCanvas';
 
+//improvements
+//project progress bar
 
 export default class ProjectPageTabs extends LightningElement {
 
