@@ -12,8 +12,7 @@
                     <template for:each={displayContent.projectVersion} for:item="projectVersion">
                         <div key={projectVersion.Id}>
                             <lightning-tab label={projectVersion.projectVersionNumber}>
-                                <lightning-formatted-rich-text value={getAPIResponse}>
-                                </lightning-formatted-rich-text>
+                                <iframe width="800" height="400" src={urllink} sandbox="allow-same-origin allow-scripts allow-forms" ></iframe>
                             </lightning-tab>
                         </div>
                     </template>

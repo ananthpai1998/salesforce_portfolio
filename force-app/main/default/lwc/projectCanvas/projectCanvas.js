@@ -17,7 +17,11 @@ export default class ProjectCanvas extends LightningModal  {
     displayContents;
     getAPIResponse;
 
+    urllink = 'https://generatehandwrittendigit-umgqvjytea-uc.a.run.app/tryAgain?';
+
     connectedCallback(){
+
+        //this.template.querySelector('iframe').src = this.urllink;
         console.log('this.content ', this.content)
 
         getProjectDetails({recordId: this.content})
@@ -32,15 +36,15 @@ export default class ProjectCanvas extends LightningModal  {
 
       console.log('Sending API request')
 
-      getAPIResponse()
-      .then((result) => {
-        console.log('result '+ result);
-        this.getAPIResponse = JSON.parse(result);
-        console.log(' this.getAPIResponse '+  this.getAPIResponse);
-      })
-      .catch((error) => {
-        this.error = error;
-      });
+      // getAPIResponse()
+      // .then((result) => {
+      //   console.log('result '+ result);
+      //   this.getAPIResponse = JSON.parse(result);
+      //   console.log(' this.getAPIResponse '+  this.getAPIResponse);
+      // })
+      // .catch((error) => {
+      //   this.error = error;
+      // });
 
     }
     

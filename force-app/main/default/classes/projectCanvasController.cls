@@ -2,7 +2,7 @@ public without sharing class projectCanvasController {
     @AuraEnabled(cacheable=true)
     public static String getProjectDetails(String recordId){
         System.debug('recordId '+ recordId);          
-        list<project__c> projectRecordList = new list<project__c>([Select Id, Name, project_display_details__c, (Select Id, Name, project_version_number__c, version_improvements__c from project_versions__r)  from project__c where Id = :recordId]);
+        list<project__c> projectRecordList = new list<project__c>([Select Id, Name, project_display_details__c, (Select Id, Name, project_version_number__c, version_improvements__c from project_versions__r ORDER BY project_version_number__c)  from project__c where Id = :recordId]);
         list<map<String, Object>> projectRecordResult = new list<map<String, Object>>();
         if (projectRecordList.size() > 0) {
             System.debug('projectRecordList '+  projectRecordList);
@@ -36,7 +36,7 @@ public without sharing class projectCanvasController {
         Project_Version__c gcpURLRecord = [Select api__c from Project_Version__c where Id = 'a022w00000wIbCvAAK'];
         Http http = new Http();
 		HttpRequest request = new HttpRequest();
-		request.setEndpoint('https://generateimages-umgqvjytea-uc.a.run.app/?user_input=1');
+		request.setEndpoint('https://generatehandwrittendigit-umgqvjytea-uc.a.run.app/tryAgain?');
 		request.setMethod('GET');
 		HttpResponse response = http.send(request);
         
