@@ -7,7 +7,7 @@
                         <div class="slds-p-horizontal_small">
                             <b>{tab.ScopeDescription}</b>
                         </div>
-                        <div class="slds-p-around_medium"><!---->
+                        <div class="slds-p-around_medium">
                             <lightning-tabset variant="vertical">
                                 <template for:each={tab.categories} for:item="category"> 
                                     <lightning-tab key={category.Id} label={category.categoryName}>
@@ -20,8 +20,10 @@
                                                     <lightning-card title={project.projectName}>
                                                         <p>{project.projectDescription}</p>
                                                         <div  slot="footer" class="slds-grid slds-grid_align-center slds-gutters">
+                                                            <!-- show this section only if any project version is active -->
+                                                            <!-- integrate Github Link -->
                                                             <div class="slds-col">
-                                                                <lightning-button label="View Source Code"></lightning-button>
+                                                                <lightning-button label="View Source Code" value={project} onclick={handleViewSourceCode}></lightning-button>
                                                             </div>
                                                             <div class="slds-col">
                                                                 <lightning-button  label="View Full Project" value={project} onclick={handleViewFullProject}></lightning-button>

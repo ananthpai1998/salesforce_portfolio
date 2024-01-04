@@ -1,6 +1,7 @@
 import { LightningElement, wire, track} from 'lwc';
 import getProjectPageTabs from '@salesforce/apex/ProjectPageController.getProjectPageTabs';
 import projectCanvas from 'c/projectCanvas';
+import projectSourceCodeNavigator from 'c/projectSourceCodeNavigator';
 
 //improvements
 //project progress bar
@@ -22,16 +23,18 @@ export default class ProjectPageTabs extends LightningElement {
         }
     }
 
+
+
     handleViewFullProject(event){
         this.selectedProjectId = event.target.value.projectId;
         this.selectedProjectName = event.target.value.projectName;
         console.log('this.selectedProjectId ',  this.selectedProjectId);
         console.log('this.selectedProjectName ',  this.selectedProjectName);
 
-        this.handleShowModal();
+        this.handleProjectCanvas();
     }
 
-    async handleShowModal() {
+    async handleProjectCanvas() {
         this.result = await projectCanvas.open({
             size: 'large',
             description: 'MiscModal displays the message in a popup',
@@ -39,4 +42,18 @@ export default class ProjectPageTabs extends LightningElement {
             content:  this.selectedProjectId
         });
     }
+
+    async handleViewSourceCode(event){
+        this.selectedProjectName = event.target.value.projectName;
+        const projectSourceCodeUnavailabilityMessage = event.target.value.projectSourceCodeUnavailabilityMessage;
+
+        this.result = await projectSourceCodeNavigator.open({
+            size: 'small',
+            description: 'MiscModal displays the message in a popup',
+            header: this.selectedProjectName,
+            content:  projectSourceCodeUnavailabilityMessage
+        });
+
+    }
+
 }

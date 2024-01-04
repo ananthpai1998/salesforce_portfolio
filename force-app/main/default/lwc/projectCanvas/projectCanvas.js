@@ -1,7 +1,7 @@
 import { api, track, wire , LightningElement  } from 'lwc';
 import LightningModal from 'lightning/modal';
 import getProjectDetails from '@salesforce/apex/projectCanvasController.getProjectDetails';
-import getAPIResponse from '@salesforce/apex/projectCanvasController.getAPIResponse';
+// import getAPIResponse from '@salesforce/apex/projectCanvasController.getAPIResponse';
 
 //Improvements Needed
 //Spinner during initial load
@@ -15,16 +15,12 @@ export default class ProjectCanvas extends LightningModal  {
     @api content;
 
     displayContents;
-    getAPIResponse;
 
-    urllink = 'https://generatehandwrittendigit-umgqvjytea-uc.a.run.app/tryAgain?';
+    //urllink = 'https://generatehandwrittendigit-umgqvjytea-uc.a.run.app/tryAgain?'; https://generateimages-umgqvjytea-uc.a.run.app/?user_input=1
 
     connectedCallback(){
-
-        //this.template.querySelector('iframe').src = this.urllink;
-        console.log('this.content ', this.content)
-
-        getProjectDetails({recordId: this.content})
+      console.log('this.content ', this.content)
+      getProjectDetails({recordId: this.content})
       .then((result) => {
         console.log('result '+ result);
         this.displayContents = JSON.parse(result);
@@ -32,22 +28,14 @@ export default class ProjectCanvas extends LightningModal  {
       })
       .catch((error) => {
         this.error = error;
-      });
-
-      console.log('Sending API request')
-
-      // getAPIResponse()
-      // .then((result) => {
-      //   console.log('result '+ result);
-      //   this.getAPIResponse = JSON.parse(result);
-      //   console.log(' this.getAPIResponse '+  this.getAPIResponse);
-      // })
-      // .catch((error) => {
-      //   this.error = error;
-      // });
+      }); 
 
     }
     
+    handleIframeLoad(){
+      console.log('Content Loaded !!');
+    }
+
     handleClose() {
         this.close('return value');
     }

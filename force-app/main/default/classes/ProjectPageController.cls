@@ -4,7 +4,7 @@ public without sharing class ProjectPageController {
     public static String getProjectPageTabs() {
 		//do error handing 
         
-        list<project__c> projectRecords = new list<project__c>([Select Id, Name, scope__c, project_category__r.Id, project_description__c from project__c]);
+        list<project__c> projectRecords = new list<project__c>([Select Id, Name, scope__c, project_category__r.Id, project_description__c, source_code_unavailability_Message__c from project__c where active__c = True]);
         //cat Id    project list project details
         Map<Id, list<Map<String, Object>>> categoryToProjectsMap = new Map<Id, list<Map<String, Object>>>();
         
@@ -14,6 +14,7 @@ public without sharing class ProjectPageController {
                 projectMap.put('projectId', projectRecord.Id);
                 projectMap.put('projectName', projectRecord.Name);
                 projectMap.put('projectDescription', projectRecord.project_description__c);
+                projectMap.put('projectSourceCodeUnavailabilityMessage', projectRecord.source_code_unavailability_Message__c);
 				categoryToProjectsMap.get(projectRecord.project_category__r.Id).add(projectMap);
             }
             else{
@@ -21,13 +22,14 @@ public without sharing class ProjectPageController {
                 projectMap.put('projectId', projectRecord.Id);
                 projectMap.put('projectName', projectRecord.Name);
                 projectMap.put('projectDescription', projectRecord.project_description__c);
+                projectMap.put('projectSourceCodeUnavailabilityMessage', projectRecord.source_code_unavailability_Message__c);
                 list<Map<String, Object>> projectList = new list<Map<String, Object>>();
                 projectList.add(projectMap);
                 categoryToProjectsMap.put(projectRecord.project_category__r.Id, projectList);
             }
         }
         
-        list<project_category__c> projectCategoryRecords = new list<project_category__c>([Select Id, Name, scope__r.Id, category_description__c  from project_category__c]);
+        list<project_category__c> projectCategoryRecords = new list<project_category__c>([Select Id, Name, scope__r.Id, category_description__c  from project_category__c where active__c = True]);
         Map<Id, list<Map<String, Object>>> scopeToCategoryMap = new  Map<Id, list<Map<String, Object>>>();
             
         for (project_category__c projectCategoryRecord : projectCategoryRecords){
@@ -52,7 +54,7 @@ public without sharing class ProjectPageController {
             }
         }
         
-        list<scope__c> scopeRecords= new list<scope__c>([Select Id, Name, scope_description__c from scope__c ORDER BY scope_order__c]);
+        list<scope__c> scopeRecords= new list<scope__c>([Select Id, Name, scope_description__c from scope__c where active__c = True ORDER BY scope_order__c ]);
         List<Map<String, Object>> result = new List<Map<String, Object>>();
         for (scope__c scopeRecord : scopeRecords) {
             Map<String, Object> recordMap = new Map<String, Object>();

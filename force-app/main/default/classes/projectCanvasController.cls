@@ -2,7 +2,7 @@ public without sharing class projectCanvasController {
     @AuraEnabled(cacheable=true)
     public static String getProjectDetails(String recordId){
         System.debug('recordId '+ recordId);          
-        list<project__c> projectRecordList = new list<project__c>([Select Id, Name, project_display_details__c, (Select Id, Name, project_version_number__c, version_improvements__c from project_versions__r ORDER BY project_version_number__c)  from project__c where Id = :recordId]);
+        list<project__c> projectRecordList = new list<project__c>([Select Id, Name, project_display_details__c, (Select Id, Name, version_improvements__c, project_version_number__c, api__c from project_versions__r where active__c = True ORDER BY project_version_number__c)  from project__c where Id = :recordId]);
         list<map<String, Object>> projectRecordResult = new list<map<String, Object>>();
         if (projectRecordList.size() > 0) {
             System.debug('projectRecordList '+  projectRecordList);
@@ -19,6 +19,7 @@ public without sharing class projectCanvasController {
                         projectVersionMap.put('Name', projectVersionRecord.Name);
                         projectVersionMap.put('projectVersionNumber', projectVersionRecord.project_version_number__c);
                         projectVersionMap.put('versionImprovements', projectVersionRecord.version_improvements__c);
+                        projectVersionMap.put('versionAPI', projectVersionRecord.api__c);
                         projectVersionResult.add(projectVersionMap);    
                     }
                     projectRecordMap.put('projectVersion', projectVersionResult);                    
@@ -30,19 +31,19 @@ public without sharing class projectCanvasController {
         return JSON.serialize(projectRecordResult);
     }
     
-    @AuraEnabled(cacheable=true)
-    public static String getAPIResponse(){
+    // @AuraEnabled(cacheable=true)
+    // public static String getAPIResponse(){
 		
-        Project_Version__c gcpURLRecord = [Select api__c from Project_Version__c where Id = 'a022w00000wIbCvAAK'];
-        Http http = new Http();
-		HttpRequest request = new HttpRequest();
-		request.setEndpoint('https://generatehandwrittendigit-umgqvjytea-uc.a.run.app/tryAgain?');
-		request.setMethod('GET');
-		HttpResponse response = http.send(request);
+    //     Project_Version__c gcpURLRecord = [Select api__c from Project_Version__c where Id = 'a022w00000wIbCvAAK'];
+    //     Http http = new Http();
+	// 	HttpRequest request = new HttpRequest();
+	// 	request.setEndpoint('https://generatehandwrittendigit-umgqvjytea-uc.a.run.app/tryAgain?');
+	// 	request.setMethod('GET');
+	// 	HttpResponse response = http.send(request);
         
-		System.debug('response '+ response.getBody());
-		return JSON.serialize(response.getBody());
+	// 	System.debug('response '+ response.getBody());
+	// 	return JSON.serialize(response.getBody());
         
-    }
+    // }
     
 }
